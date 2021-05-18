@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -50,9 +49,16 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void DeleteThread(string noteTag)
+    public void DeleteThreadsByTag(string noteTag)
     {
-
+        var threads = GameObject.FindGameObjectsWithTag(Thread.tag);
+        foreach (var thread in threads)
+        {
+            if (thread.GetComponent<ThreadObject>().tagFrom == noteTag || thread.GetComponent<ThreadObject>().tagTo == noteTag)
+            {
+                Destroy(thread);
+            }
+        }
     }
 
     private IEnumerator SaveGameDataCoroutine()

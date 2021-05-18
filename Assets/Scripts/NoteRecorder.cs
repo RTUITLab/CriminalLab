@@ -32,10 +32,12 @@ public class NoteRecorder : MonoBehaviour
     private Text Timer;
     private Coroutine timerCoroutine;
     private GameObject DeleteNoteButton;
+    private GameController GameController;
 
     void Awake()
     {
         DeleteNoteButton = transform.parent.GetChild(0).GetChild(0).gameObject;
+        GameController = GameObject.FindGameObjectWithTag(nameof(GameController)).GetComponent<GameController>();
 
         audioSource = transform.GetChild(1).GetComponent<AudioSource>();
 
@@ -53,7 +55,13 @@ public class NoteRecorder : MonoBehaviour
 
     public void DeleteNote()
     {
-        Debug.Log("Вы удалили заметку!");
+        GameController.DeleteThreadsByTag(transform.parent.parent.GetComponent<ThreadPlacer>().noteTag);
+        Destroy(transform.parent.parent.gameObject);
+    }
+
+    public void DeleteThreads()
+    {
+        GameController.DeleteThreadsByTag(transform.parent.parent.GetComponent<ThreadPlacer>().noteTag);
     }
 
     public void ToggleRecording()
