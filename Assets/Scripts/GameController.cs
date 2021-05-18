@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void DeleteThread(string noteTag)
+    public void DeleteThreadsByTag(string noteTag)
     {
         var threads = GameObject.FindGameObjectsWithTag(Thread.tag);
         foreach (var thread in threads)

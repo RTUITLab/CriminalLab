@@ -55,8 +55,13 @@ public class NoteRecorder : MonoBehaviour
 
     public void DeleteNote()
     {
-        GameController.DeleteThread(transform.parent.parent.GetComponent<ThreadPlacer>().noteTag);
+        GameController.DeleteThreadsByTag(transform.parent.parent.GetComponent<ThreadPlacer>().noteTag);
         Destroy(transform.parent.parent.gameObject);
+    }
+
+    public void DeleteThreads()
+    {
+        GameController.DeleteThreadsByTag(transform.parent.parent.GetComponent<ThreadPlacer>().noteTag);
     }
 
     public void ToggleRecording()
