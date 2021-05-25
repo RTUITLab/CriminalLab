@@ -8,6 +8,8 @@ TagManager:
   - Thread
   - StickNote
   - NoteSpawnPoint
+  - RightHand
+  - LeftHand
   layers:
   - Default
   - TransparentFX

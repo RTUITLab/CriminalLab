@@ -11,11 +11,19 @@ public class ThreadPlacer : MonoBehaviour
     private Vector3 mOffset;
     private float mZCoord;
 
+    private bool IsPressing = false;
+    private Transform RightHand;
+    private Transform LeftHand;
+    private Transform NoteSpawnPoint;
+
     void Awake()
     {
         noteTag = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fffff");
         var camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         transform.GetChild(0).GetComponent<Canvas>().worldCamera = camera;
+
+        RightHand = GameObject.FindGameObjectWithTag(nameof(RightHand)).transform;
+        LeftHand = GameObject.FindGameObjectWithTag(nameof(LeftHand)).transform;
     }
 
     public void AddTarget()
@@ -34,6 +42,41 @@ public class ThreadPlacer : MonoBehaviour
         {
             Debug.LogError($"GameController targets are not empty");
             return;
+        }
+    }
+
+    void Update()
+    {
+        Ray ray = new Ray();
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            Debug.LogError("PRESSED");
+            IsPressing = true;
+            // Right hand
+            ray = new Ray(RightHand.position, RightHand.forward);
+        }
+        else if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        {
+            Debug.LogError("PRESSED");
+            IsPressing = true;
+            // Left hand
+            ray = new Ray(LeftHand.position, LeftHand.forward);
+        }
+        else
+        {
+            Debug.LogError("NOOOOOOOOOOOOOOOO PRESSED");
+            IsPressing = false;
+        }
+
+        if (IsPressing && Physics.Raycast(ray, out RaycastHit hit, 1000.0f))
+        {
+            Debug.LogError("PRESSED HIT");
+            if (hit.transform.tag == "StickNote")
+            {
+                Debug.LogError("PRESSED HIT TAG");
+                NoteSpawnPoint = GameObject.FindGameObjectWithTag(nameof(NoteSpawnPoint)).transform;
+                hit.transform.position = new Vector3(NoteSpawnPoint.position.x, NoteSpawnPoint.position.y, transform.position.z);
+            }
         }
     }
 

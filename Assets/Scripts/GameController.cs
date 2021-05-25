@@ -52,7 +52,6 @@ public class GameController : MonoBehaviour
 
     public void CreateNote()
     {
-        // TODO: sphere on UIHelper
         var noteSpawnPoint = GameObject.FindGameObjectWithTag("NoteSpawnPoint").transform.position;
         var note = Instantiate(StickNote, noteSpawnPoint - new Vector3(0, 0, 0.08f), StickNote.transform.rotation);
         note.GetComponent<ThreadPlacer>().GameController = this;
