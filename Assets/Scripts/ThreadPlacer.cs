@@ -11,7 +11,8 @@ public class ThreadPlacer : MonoBehaviour
     private Vector3 mOffset;
     private float mZCoord;
 
-    private bool IsPressing = false;
+    public static bool IsPressing = false;
+    private bool isPressing = false;
     private Transform RightHand;
     private Transform LeftHand;
     private Transform NoteSpawnPoint;
@@ -47,33 +48,33 @@ public class ThreadPlacer : MonoBehaviour
 
     void Update()
     {
-        Ray ray = new Ray();
-        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+        if (IsPressing != isPressing)
         {
-            Debug.LogError("PRESSED");
-            IsPressing = true;
+            return;
+        }
+
+        Ray ray = new Ray();
+        if (OVRInput.Get(OVRInput.Button.PrimaryHandTrigger))
+        {
+            IsPressing = isPressing = true;
             // Right hand
             ray = new Ray(RightHand.position, RightHand.forward);
         }
-        else if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        else if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger))
         {
-            Debug.LogError("PRESSED");
-            IsPressing = true;
+            IsPressing = isPressing = true;
             // Left hand
             ray = new Ray(LeftHand.position, LeftHand.forward);
         }
         else
         {
-            Debug.LogError("NOOOOOOOOOOOOOOOO PRESSED");
-            IsPressing = false;
+            IsPressing = isPressing = false;
         }
 
-        if (IsPressing && Physics.Raycast(ray, out RaycastHit hit, 1000.0f))
+        if (isPressing && Physics.Raycast(ray, out RaycastHit hit, 1000.0f))
         {
-            Debug.LogError("PRESSED HIT");
-            if (hit.transform.tag == "StickNote")
+            if (hit.transform.tag == tag)
             {
-                Debug.LogError("PRESSED HIT TAG");
                 NoteSpawnPoint = GameObject.FindGameObjectWithTag(nameof(NoteSpawnPoint)).transform;
                 hit.transform.position = new Vector3(NoteSpawnPoint.position.x, NoteSpawnPoint.position.y, transform.position.z);
             }
