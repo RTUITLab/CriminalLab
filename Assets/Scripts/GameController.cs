@@ -49,6 +49,12 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        SaveGameData();
+        Debug.Log("Data was saved before closing application");
+    }
+
     public void DeleteThreadsByTag(string noteTag)
     {
         var threads = GameObject.FindGameObjectsWithTag(Thread.tag);
