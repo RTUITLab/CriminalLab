@@ -14,6 +14,8 @@ public class ThreadPlacer : MonoBehaviour
     void Awake()
     {
         noteTag = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss.fffff");
+        var camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        transform.GetChild(0).GetComponent<Canvas>().worldCamera = camera;
     }
 
     public void AddTarget()

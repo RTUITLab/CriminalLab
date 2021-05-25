@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - Thread
   - StickNote
+  - NoteSpawnPoint
   layers:
   - Default
   - TransparentFX
