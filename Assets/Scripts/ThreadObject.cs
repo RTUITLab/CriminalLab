@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ThreadObject : MonoBehaviour
 {
@@ -12,19 +11,6 @@ public class ThreadObject : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    if (Physics.Raycast(ray, out RaycastHit hit, 100.0f))
-        //    {
-        //        if (hit.transform.tag == this.tag)
-        //        {
-        //            Instantiate(ThreadNote, new Vector3(0, 0, 0), Quaternion.identity, parent: transform);
-        //        }
-        //    }
-        //}
-
-
         if (targetFrom == null || targetTo == null || targetFrom == targetTo)
         {
             Debug.LogError($"Thread missed target from {targetFrom} or target to {targetTo}");
