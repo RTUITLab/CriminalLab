@@ -26,9 +26,10 @@ public class GameController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f))
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f))
             {
                 Debug.Log("You've selected the " + hit.transform.tag);
+                Debug.Log("You've selected the " + hit.transform.name);
                 if (hit.transform.tag == Wall.tag)
                 {
                     var note = Instantiate(StickNote, hit.point - new Vector3(0, 0, 0.08f), StickNote.transform.rotation);
@@ -47,6 +48,19 @@ public class GameController : MonoBehaviour
             threadObj.tagTo = TagTo;
             TargetFrom = TargetTo = null;
         }
+    }
+
+    public void CreateNote()
+    {
+        var noteSpawnPoint = GameObject.FindGameObjectWithTag("NoteSpawnPoint").transform.position;
+        var note = Instantiate(StickNote, noteSpawnPoint - new Vector3(0, 0, 0.08f), StickNote.transform.rotation);
+        note.GetComponent<ThreadPlacer>().GameController = this;
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveGameData();
+        Debug.Log("Data was saved before closing application");
     }
 
     public void DeleteThreadsByTag(string noteTag)

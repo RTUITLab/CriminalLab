@@ -39,6 +39,7 @@ public class NoteRecorder : MonoBehaviour
         DeleteNoteButton = transform.parent.GetChild(0).GetChild(0).gameObject;
         GameController = GameObject.FindGameObjectWithTag(nameof(GameController)).GetComponent<GameController>();
 
+
         audioSource = transform.GetChild(1).GetComponent<AudioSource>();
 
         Timer = transform.GetChild(2).GetComponent<Text>();
@@ -73,12 +74,10 @@ public class NoteRecorder : MonoBehaviour
 
         if (!IsRecording)
         {
-            ChangeRecordingState(true);
             StartRecording();
         }
         else
         {
-            ChangeRecordingState(false);
             StopRecording();
         }
     }
@@ -165,7 +164,7 @@ public class NoteRecorder : MonoBehaviour
         deviceName = Microphone.devices[0];
         Microphone.GetDeviceCaps(deviceName, out minFreq, out maxFreq);
 
-        Debug.Log(deviceName);
+        Debug.LogWarning(deviceName);
 
         avFreq = maxFreq < avFreq ? maxFreq : avFreq;
 

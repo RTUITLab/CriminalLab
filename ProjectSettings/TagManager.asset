@@ -7,6 +7,9 @@ TagManager:
   - Wall
   - Thread
   - StickNote
+  - NoteSpawnPoint
+  - RightHand
+  - LeftHand
   layers:
   - Default
   - TransparentFX
